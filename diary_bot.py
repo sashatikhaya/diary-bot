@@ -5,13 +5,11 @@ from flask import Flask, request
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
 import telegram
 
-# Установка зависимостей
+# Установка зависимостей - проверим установку Flask и telegram-bot
 def install_requirements():
-    try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", 'Flask==2.1.1', 'python-telegram-bot==13.15'])
-    except subprocess.CalledProcessError as e:
-        print(f"Error installing requirements: {e}")
-        sys.exit(1)
+    print("Installing Flask and python-telegram-bot...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", 'Flask==2.1.1', 'python-telegram-bot==13.15'])
+    print("Dependencies installed.")
 
 # Проверка и установка зависимостей
 install_requirements()
