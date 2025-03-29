@@ -7,7 +7,11 @@ import telegram
 
 # Установка зависимостей
 def install_requirements():
-    subprocess.check_call([sys.executable, "-m", "pip", "install", 'Flask==2.1.1', 'python-telegram-bot==13.15'])
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", 'Flask==2.1.1', 'python-telegram-bot==13.15'])
+    except subprocess.CalledProcessError as e:
+        print(f"Error installing requirements: {e}")
+        sys.exit(1)
 
 # Проверка и установка зависимостей
 install_requirements()
