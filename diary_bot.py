@@ -96,5 +96,6 @@ def main():
     # Запуск Flask приложения на нужном порту
     app.run(host='0.0.0.0', port=port)  # Flask слушает на этом порту
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
     main()
