@@ -97,7 +97,7 @@ def main():
     port = int(os.environ.get('PORT', 10000))  # Порт по умолчанию 10000
 
     # Создание Updater и Dispatcher
-    updater = Updater("YOUR_BOT_TOKEN", use_context=True)  # Замените YOUR_BOT_TOKEN на ваш реальный токен
+    updater = Updater("7609459910:AAHLUbrNIQTtxYDnThloG5U7T38bNuuycZ8", use_context=True)  # Замените YOUR_BOT_TOKEN на ваш реальный токен
     dispatcher = updater.dispatcher
 
     # Настройка обработчика разговора
