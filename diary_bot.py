@@ -90,7 +90,7 @@ def main():
         return 'ok', 200  # Отправляем ответ Telegram
 
     # Устанавливаем Webhook
-    updater.bot.setWebhook(f'https://yourdomain.com/webhook')  # Замените на свой реальный URL
+    updater.bot.setWebhook(f'https://diary-bot.onrender.com')  # Замените на свой реальный URL
 
     # Запуск Flask приложения на нужном порту
     app.run(host='0.0.0.0', port=port)  # Flask слушает на этом порту
