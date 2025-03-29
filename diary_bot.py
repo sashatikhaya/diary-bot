@@ -1,4 +1,7 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
+from flask import Flask, request
+import os
+import telegram
 
 # Вопросы для дневника
 QUESTION1, QUESTION2, QUESTION3, QUESTION4, QUESTION5 = range(5)
@@ -11,6 +14,9 @@ questions = [
     "4. Что ты сделала в этой ситуации?",
     "5. Как ты можешь взглянуть на неё иначе?"
 ]
+
+# Создание Flask приложения
+app = Flask(__name__)
 
 def start(update, context):
     update.message.reply_text(
@@ -42,10 +48,14 @@ def cancel(update, context):
     return ConversationHandler.END
 
 def main():
+    # Использование переменной окружения для порта
+    port = int(os.environ.get('PORT', 10000))
+    
+    # Создание Updater и Dispatcher
     updater = Updater("7609459910:AAHLUbrNIQTtxYDnThloG5U7T38bNuuycZ8", use_context=True)
+    dispatcher = updater.dispatcher
 
-    dp = updater.dispatcher
-
+    # Настройка обработчика разговора
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
@@ -58,9 +68,21 @@ def main():
         fallbacks=[CommandHandler("cancel", cancel)],
     )
 
-    dp.add_handler(conv_handler)
-    updater.start_polling()
-    updater.idle()
+    dispatcher.add_handler(conv_handler)
+
+    # Flask route для вебхука
+    @app.route('/webhook', methods=['POST'])
+    def webhook():
+        json_str = request.get_data().decode('UTF-8')  # Получаем сообщение от Telegram
+        update = telegram.Update.de_json(json_str, updater.bot)  # Обрабатываем сообщение
+        dispatcher.process_update(update)  # Отправляем его в диспетчер
+        return 'ok', 200  # Отправляем ответ Telegram
+
+    # Устанавливаем Webhook
+    updater.bot.setWebhook(f'https://yourdomain.com/webhook')  # Замените на свой реальный URL
+
+    # Запуск Flask приложения на нужном порту
+    app.run(host='0.0.0.0', port=port)  # Слушаем порт 10000
 
 if __name__ == '__main__':
     main()
