@@ -1,14 +1,12 @@
 import os
+import subprocess
+import sys
 from flask import Flask, request
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
 import telegram
 
-# Установка зависимостей
-def install_requirements():
-    subprocess.check_call([sys.executable, "-m", "pip", "install", 'Flask==2.1.1', 'python-telegram-bot==13.15'])
-
-# Проверка и установка зависимостей
-install_requirements()
+# Убираем установку зависимостей в коде, так как они уже установлены через requirements.txt
+# install_requirements()  # Убираем этот вызов
 
 # Вопросы для дневника
 QUESTION1, QUESTION2, QUESTION3, QUESTION4, QUESTION5 = range(5)
@@ -98,7 +96,7 @@ def main():
         return 'ok', 200  # Отправляем ответ Telegram
 
     # Устанавливаем Webhook
-    updater.bot.setWebhook(f'https://yourdomain.com/webhook')  # Замените на свой реальный URL
+    updater.bot.setWebhook(f'https://yourdomain.com/webhook')  # Используем реальный URL от Render
 
     # Запуск Flask приложения на нужном порту
     app.run(host='0.0.0.0', port=port)  # Flask слушает на этом порту
