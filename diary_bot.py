@@ -64,7 +64,7 @@ def main():
     port = int(os.environ.get('PORT', 10000))  # Порт по умолчанию 10000
 
     # Создание Updater и Dispatcher
-    updater = Updater("7609459910:AAHLUbrNIQTtxYDnThloG5U7T38bNuuycZ8", use_context=True)
+    updater = Updater("7609459910:AAHLUbrNIQTtxYDnThloG5U7T38bNuuycZ8", use_context=True)  # Токен от твоего бота
     dispatcher = updater.dispatcher
 
     # Настройка обработчика разговора
@@ -91,7 +91,7 @@ def main():
         return 'ok', 200  # Отправляем ответ Telegram
 
     # Устанавливаем Webhook
-    updater.bot.setWebhook(f'https://diary-bot.onrender.com/webhook')  # Замените на свой реальный URL
+    updater.bot.setWebhook(f'https://diary-bot.onrender.com/webhook')  # Используем реальный URL от Render
 
     # Запуск Flask приложения на нужном порту
     app.run(host='0.0.0.0', port=port)  # Flask слушает на этом порту
