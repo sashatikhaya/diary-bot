@@ -1,7 +1,16 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
-from flask import Flask, request
 import os
+import subprocess
+import sys
+from flask import Flask
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
 import telegram
+
+# Установка зависимостей
+def install_requirements():
+    subprocess.check_call([sys.executable, "-m", "pip", "install", 'Flask==2.1.1', 'python-telegram-bot==13.15'])
+
+# Проверка и установка зависимостей
+install_requirements()
 
 # Вопросы для дневника
 QUESTION1, QUESTION2, QUESTION3, QUESTION4, QUESTION5 = range(5)
@@ -49,8 +58,8 @@ def cancel(update, context):
 
 def main():
     # Использование переменной окружения для порта
-    port = int(os.environ.get('PORT', 10000))
-    
+    port = int(os.environ.get('PORT', 10000))  # Порт по умолчанию 10000
+
     # Создание Updater и Dispatcher
     updater = Updater("7609459910:AAHLUbrNIQTtxYDnThloG5U7T38bNuuycZ8", use_context=True)
     dispatcher = updater.dispatcher
@@ -82,7 +91,7 @@ def main():
     updater.bot.setWebhook(f'https://yourdomain.com/webhook')  # Замените на свой реальный URL
 
     # Запуск Flask приложения на нужном порту
-    app.run(host='0.0.0.0', port=port)  # Слушаем порт 10000
+    app.run(host='0.0.0.0', port=port)  # Flask слушает на этом порту
 
 if __name__ == '__main__':
     main()
