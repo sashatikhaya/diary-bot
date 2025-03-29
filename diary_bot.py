@@ -83,11 +83,11 @@ def main():
 
     # Flask route для вебхука
     @app.route('/webhook', methods=['POST'])
-    def webhook():
-        json_str = request.get_data().decode('UTF-8')  # Получаем сообщение от Telegram
-        update = telegram.Update.de_json(json_str, updater.bot)  # Обрабатываем сообщение
-        dispatcher.process_update(update)  # Отправляем его в диспетчер
-        return 'ok', 200  # Отправляем ответ Telegram
+def webhook():
+    json_str = request.get_data().decode('UTF-8')  # Получаем сообщение от Telegram
+    update = telegram.Update.de_json(json_str, updater.bot)  # Обрабатываем сообщение
+    dispatcher.process_update(update)  # Отправляем его в диспетчер
+    return 'ok', 200  # Отправляем ответ Telegram
 
     # Устанавливаем Webhook
     updater.bot.setWebhook(f'https://diary-bot.onrender.com')  # Замените на свой реальный URL
