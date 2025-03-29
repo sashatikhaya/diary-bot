@@ -88,7 +88,7 @@ def webhook():
     update = telegram.Update.de_json(json_str, updater.bot)  # Обрабатываем сообщение
     dispatcher.process_update(update)  # Отправляем его в диспетчер
     return 'ok', 200  # Отправляем ответ Telegram
-
+    
     # Устанавливаем Webhook
     updater.bot.setWebhook(f'https://diary-bot.onrender.com')  # Замените на свой реальный URL
 
